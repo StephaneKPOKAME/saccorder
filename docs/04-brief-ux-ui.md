@@ -1,51 +1,61 @@
-# 04 — Brief UX/UI · Identité & interface
+# 04 — Brief UX/UI · Identité (direction sombre) & interface
 
-Identité « moderne » de S'accorder, à appliquer partout. Habillage uniquement : le fonctionnement suit le PRD.
+Identité livrée en handoff par Stéphane (`docs/identite/`). Habillage uniquement : le fonctionnement suit le PRD.
 
-## 1. Police
-**Schibsted Grotesk** (Google Fonts), poids 400 / 500 / 600 / 700. Titres serrés, interligne compact.
+## 0. Principe directeur — une identité, deux intensités
+La même identité sombre partout, appliquée à **deux niveaux** :
+- **Landing (identité pleine)** : verre, halos colorés animés, grands titres Unbounded. Pour séduire.
+- **Écrans de travail / app (version calme)** : mêmes couleurs et polices, mais **surfaces solides, fort contraste, peu ou pas d'animation, verre avec parcimonie**. Pour être lisible et efficace (formulaire, résultats). ← c'est là que vit le MVP.
 
-## 2. Couleurs
-| Rôle | Nom | Hex |
-|---|---|---|
-| Texte, fonds sombres | vert profond | `#004038` |
-| Boutons, liens | vert | `#106048` |
-| Accent (ce qui rassemble) | menthe vive | `#58E8A8` |
-| Fonds d'emphase | menthe 100 / 50 | `#D8F8E8` / `#E0F8F0` |
-| Texte secondaire | — | `#4A6A60` |
-| Bordure | — | `#DFE7E3` |
-| Gris froid | — | `#D8E0E0` |
-| Étiquettes discrètes | muted | `#5D7F74` |
-| Fond de page | — | `#F5F7F6` |
+## 1. Polices
+- **Unbounded** — titres et grands affichages (display).
+- **Onest** — texte courant, interface, données. Porte l'essentiel du travail.
+- **Outfit** — logotype « s'accorder » uniquement.
+Dans l'app, Unbounded est **réservé aux grands titres d'écran** ; tout le reste est en Onest (Unbounded est trop lourd pour du texte dense).
 
-Pas de rouge d'alerte, pas de vert « validé ». Un point à discuter se signale par un accent **menthe** ou une étiquette « À creuser » neutre.
+## 2. Palette (mode sombre)
+| Rôle | Valeur |
+|---|---|
+| Fond page | `#0C0E0F` |
+| Surfaces | `#111415` · `#141718` · `#1B1F20` |
+| Bordures | `rgba(255,255,255,.07 → .12)` |
+| Texte | `#F1F3F2` |
+| Texte secondaire | `#A3ABA8` |
+| Texte tertiaire | `#7D8784` |
+| Accent (actions, convergence) | menthe `#58E8A8` |
+| Verre | `rgba(255,255,255,.05)` + bordure `.1` + `backdrop-filter: blur(24px) saturate(140%)` |
 
-## 3. Formes & profondeur
-- Rayons : **999** (pilules) · **28** (panneaux) · **22** (cartes) · **14** (contrôles/champs).
-- Ombre unique, très douce : `0 1px 2px rgba(0,64,56,.06)`.
-- **Signature visuelle** : halo menthe autour des boutons et champs actifs — `box-shadow: 0 0 0 4px rgba(88,232,168,.2)` (5px pour les gros boutons).
-- Transitions : 140 ms.
+## 3. Couleurs de thème (pastels)
+Bleuet `#8FA9E8` · Abricot `#F5A97F` · Lilas `#C0B0E8` · Blé `#E8D67A`.
+- Servent d'**accents de section** (color-coder les 6 sections de la carte : menthe + les 4 pastels, la 6e reprend une teinte ou reste neutre).
+- **Sémantique** : menthe = ce qui rassemble / positif / action ; **abricot** = point « à creuser » / contraste (le « chaud » qui attire l'œil sans être une alerte). **Pas de rouge**, pas de vert « validé ».
 
-## 4. Échelle typographique
-- Display : 56 → 76 / 600 / -0.045em / interligne 0.98
-- Titre : 28 / 600 / -0.03em
-- Corps : 17 / 400 / interligne 1.6
-- Étiquette : 12 / 600 / +0.16em / majuscules (muted)
+## 4. Formes & profondeur
+- Rayons : `14 · 18 · 24 · 28 · 36 · 40 · 999` (pilules).
+- Verre : réservé à la landing et, au plus, à la barre de navigation de l'app. **Pas de verre sur les cartes de contenu** (formulaire, résultats) → surfaces solides.
+- Animations : halos animés = landing uniquement. Dans l'app, seulement de **légères transitions** (140–200 ms). Respecter **`prefers-reduced-motion`** (tout couper).
 
-## 5. Composants clés
-- **Boutons** : *primaire* (fond vert profond, texte clair, pilule, halo), *secondaire* (contour), *accent* (fond menthe, texte vert profond).
-- **Champs** : rayon 14, contour bordure, halo menthe au focus.
-- **Choix unique (question)** : option sélectionnée = fond vert profond / texte clair ; non sélectionnée = contour.
-- **Tuile personne** : initiales + nom + poste, cliquable.
-- **Barre de tendance** : piste menthe 50, remplissage menthe/vert, libellé « % (effectif) ».
-- **Badge** « À creuser » pour les questions sans consensus.
-- **Logo** : `saccorder-logo-horizontal.png` — sur blanc, sur menthe pâle, ou en blanc sur fond vert profond.
+## 5. Deux intensités — règles concrètes
+**Landing** : hero en verre, halos `sa-drift`, dégradé animé sur « s'accorder », grands titres Unbounded.
+**App (écrans de travail)** :
+- Fond `#0C0E0F`, cartes en surfaces solides (`#111415`/`#141718`), bordures discrètes.
+- Texte `#F1F3F2` sur surface → viser un **contraste confortable** (lisibilité AA).
+- Zéro halo animé ; pas de verre sur les blocs de contenu.
+- Densité maîtrisée, beaucoup d'air.
 
-## 6. Règles d'interface
-- Vouvoiement, sobre, pas d'emoji, pas de point d'exclamation.
-- Les chiffres de tendance suivent le choix de l'oncle : **% + effectif** (ex. « 60 % (3) »).
+## 6. Composants clés
+- **Bouton primaire** : pilule claire (`#F1F3F2`, texte `#0C0E0F`) avec pastille menthe (flèche) ; hover → blanc pur. **Accent** : fond menthe `#58E8A8`, texte sombre.
+- **Bouton secondaire** : contour clair (`rgba(255,255,255,.12)`), texte `#F1F3F2`.
+- **Champ** : surface `#141718`, bordure `rgba(255,255,255,.1)`, texte clair, placeholder tertiaire ; focus → bordure/halo menthe léger.
+- **Option (choix unique)** : non sélectionnée = surface + bordure ; sélectionnée = fond menthe `#58E8A8`, texte `#0C0E0F`.
+- **Tuile personne** : initiales dans une pastille (couleur de thème), nom + poste ; cliquable.
+- **Barre de tendance** : piste translucide claire, remplissage menthe (ou pastel de section), libellé « % (effectif) ».
+- **Badge « À creuser »** : abricot translucide / contour abricot.
+- **Logo** : diapason (reconstruit en HTML ou `logo-horizontal.png`), version claire sur fond sombre.
+
+## 7. Règles d'interface
+- Vouvoiement, sobre, **pas d'emoji**, pas de point d'exclamation.
+- Tendances : **% + effectif** (ex. « 60 % (3) »).
 - Avatars en **initiales**, jamais de photo.
-- Lisibilité mobile indispensable (formulaire collaborateur surtout).
-
-## 7. Point ouvert (à trancher en construisant)
-Couleur d'accent des **points de contraste** : rester sur la menthe/vert profond (cohérent avec l'identité) plutôt que réintroduire une teinte chaude. À valider sur le premier rendu de la vue d'équipe.
+- Lisibilité mobile indispensable (surtout le formulaire collaborateur).
+- `prefers-reduced-motion` respecté partout.

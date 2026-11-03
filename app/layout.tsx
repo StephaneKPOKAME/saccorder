@@ -1,11 +1,20 @@
 import type { Metadata } from "next";
-import { Schibsted_Grotesk } from "next/font/google";
+import { Onest, Outfit, Unbounded } from "next/font/google";
 import "./globals.css";
 
-const schibstedGrotesk = Schibsted_Grotesk({
-  variable: "--font-schibsted",
+const onest = Onest({
+  variable: "--font-onest",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+});
+
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
+  subsets: ["latin"],
+});
+
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -15,8 +24,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="fr" className={`${schibstedGrotesk.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-bg text-deep-green">{children}</body>
+    <html
+      lang="fr"
+      className={`${onest.variable} ${unbounded.variable} ${outfit.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col bg-bg text-text font-sans">{children}</body>
     </html>
   );
 }
