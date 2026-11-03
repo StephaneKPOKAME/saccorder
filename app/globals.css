@@ -1,0 +1,25 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+@theme inline {
+  --font-sans: var(--font-schibsted);
+}
+
+:root {
+  --background: #f5f7f6;
+  --foreground: #004038;
+}
+
+* {
+  border-color: #dfe7e3;
+}
+
+html {
+  font-feature-settings: "tnum" 1;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-schibsted), system-ui, sans-serif;
+}
