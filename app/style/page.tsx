@@ -124,12 +124,12 @@ export default function StyleGuide() {
 
       <section className="flex flex-col gap-4">
         <SectionLabel>Barre de tendance</SectionLabel>
-        <div className="flex max-w-sm flex-col gap-2">
+        <div className="flex max-w-sm flex-col gap-3">
           <p className="text-body text-text">En combinant les deux selon le contexte</p>
           <div className="h-2 w-full rounded-pill bg-white/10">
             <div className="h-2 w-3/5 rounded-pill bg-mint" />
           </div>
-          <p className="text-label text-text-3">60 % (3)</p>
+          <p className="text-sm leading-relaxed text-text-2">60 % (3)</p>
         </div>
       </section>
     </main>
