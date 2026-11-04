@@ -1,3 +1,5 @@
+import { Wordmark } from "@/components/logo";
+
 function SectionLabel({ children }: { children: string }) {
   return <p className="text-label uppercase text-text-3">{children}</p>;
 }
@@ -13,7 +15,8 @@ const THEME_COLORS = [
 export default function StyleGuide() {
   return (
     <main className="mx-auto flex max-w-3xl flex-col gap-14 px-6 py-16">
-      <header className="flex flex-col gap-2">
+      <header className="flex flex-col gap-3">
+        <Wordmark />
         <SectionLabel>Identité — version calme</SectionLabel>
         <h1 className="font-display text-title text-text">Guide de style</h1>
         <p className="text-body text-text-2">
