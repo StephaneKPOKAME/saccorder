@@ -176,7 +176,7 @@ export function CollaboratorForm({
 
   return (
     <main className="mx-auto flex w-full max-w-xl flex-1 flex-col gap-10 px-6 py-16">
-      <div id="printable-card" className="flex flex-col gap-10">
+      <div className="print-area flex flex-col gap-10">
         <header className="flex flex-col gap-2">
           <p className="font-logo text-xl text-text">s&apos;accorder</p>
           <h1 className="font-display text-title text-text">{sessionTitle}</h1>

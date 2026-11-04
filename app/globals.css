@@ -42,13 +42,13 @@ body {
   body * {
     visibility: hidden;
   }
-  #printable-card,
-  #printable-card * {
+  .print-area,
+  .print-area * {
     visibility: visible;
     color: #0c0e0f !important;
     background: transparent !important;
   }
-  #printable-card {
+  .print-area {
     position: absolute;
     inset: 0;
     background: #ffffff !important;
