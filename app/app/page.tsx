@@ -1,5 +1,6 @@
 import { connection } from "next/server";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { createSession } from "./actions";
 import { CopyLinkButton } from "./copy-link-button";
@@ -73,7 +74,21 @@ export default async function AppPage() {
                   <span className="text-body text-text">{session.title}</span>
                   <span className="text-sm text-text-3">/r/{session.share_token}</span>
                 </div>
-                <CopyLinkButton token={session.share_token} />
+                <div className="flex shrink-0 flex-wrap items-center gap-2">
+                  <Link
+                    href={`/app/session/${session.id}`}
+                    className="rounded-pill border border-border-strong px-4 py-2 text-sm font-medium text-text transition hover:bg-surface-2"
+                  >
+                    Résultats
+                  </Link>
+                  <Link
+                    href={`/app/session/${session.id}/regles`}
+                    className="rounded-pill border border-border-strong px-4 py-2 text-sm font-medium text-text transition hover:bg-surface-2"
+                  >
+                    Règles
+                  </Link>
+                  <CopyLinkButton token={session.share_token} />
+                </div>
               </li>
             ))}
           </ul>
