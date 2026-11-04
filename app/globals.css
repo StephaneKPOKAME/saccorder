@@ -37,3 +37,21 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-card,
+  #printable-card * {
+    visibility: visible;
+    color: #0c0e0f !important;
+    background: transparent !important;
+  }
+  #printable-card {
+    position: absolute;
+    inset: 0;
+    background: #ffffff !important;
+    padding: 2rem;
+  }
+}
