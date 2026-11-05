@@ -27,12 +27,32 @@ export function CollaboratorForm({
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [touched, setTouched] = useState<Record<keyof IdentityPayload, boolean>>({
+    firstName: false,
+    lastName: false,
+    role: false,
+    email: false,
+  });
+
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identity.email.trim());
 
   const identityComplete =
     identity.firstName.trim() !== "" &&
     identity.lastName.trim() !== "" &&
     identity.role.trim() !== "" &&
-    identity.email.trim() !== "";
+    identity.email.trim() !== "" &&
+    emailValid;
+
+  function touch(field: keyof IdentityPayload) {
+    setTouched((state) => ({ ...state, [field]: true }));
+  }
+
+  function fieldError(field: keyof IdentityPayload): string | undefined {
+    if (!touched[field]) return undefined;
+    if (identity[field].trim() === "") return "Ce champ est obligatoire.";
+    if (field === "email" && !emailValid) return "Adresse email invalide.";
+    return undefined;
+  }
 
   const answeredCount = Object.keys(answers).length;
   const allAnswered = answeredCount === TOTAL_QUESTIONS;
@@ -73,31 +93,44 @@ export function CollaboratorForm({
 
         <form
           className="flex flex-col gap-6 rounded-xl border border-border bg-surface-1 p-8"
+          noValidate
           onSubmit={(event) => {
             event.preventDefault();
-            if (identityComplete) setStep("questions");
+            if (identityComplete) {
+              setStep("questions");
+            } else {
+              setTouched({ firstName: true, lastName: true, role: true, email: true });
+            }
           }}
         >
           <Field
             label="Prénom"
             value={identity.firstName}
             onChange={(value) => setIdentity((state) => ({ ...state, firstName: value }))}
+            onBlur={() => touch("firstName")}
+            error={fieldError("firstName")}
           />
           <Field
             label="Nom"
             value={identity.lastName}
             onChange={(value) => setIdentity((state) => ({ ...state, lastName: value }))}
+            onBlur={() => touch("lastName")}
+            error={fieldError("lastName")}
           />
           <Field
             label="Poste"
             value={identity.role}
             onChange={(value) => setIdentity((state) => ({ ...state, role: value }))}
+            onBlur={() => touch("role")}
+            error={fieldError("role")}
           />
           <Field
             label="Email"
             type="email"
             value={identity.email}
             onChange={(value) => setIdentity((state) => ({ ...state, email: value }))}
+            onBlur={() => touch("email")}
+            error={fieldError("email")}
           />
           <p className="text-sm text-text-3">Vous recevrez votre carte à cette adresse.</p>
 
@@ -244,11 +277,15 @@ function Field({
   label,
   value,
   onChange,
+  onBlur,
+  error,
   type = "text",
 }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
+  onBlur?: () => void;
+  error?: string;
   type?: string;
 }) {
   return (
@@ -259,8 +296,15 @@ function Field({
         required
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="rounded-md border border-border bg-surface-2 px-5 py-3 text-body text-text outline-none transition placeholder:text-text-3 focus:border-mint focus:shadow-halo"
+        onBlur={onBlur}
+        aria-invalid={Boolean(error)}
+        className={
+          error
+            ? "rounded-md border border-abricot bg-surface-2 px-5 py-3 text-body text-text outline-none transition placeholder:text-text-3 focus:shadow-halo"
+            : "rounded-md border border-border bg-surface-2 px-5 py-3 text-body text-text outline-none transition placeholder:text-text-3 focus:border-mint focus:shadow-halo"
+        }
       />
+      {error && <p className="text-sm text-abricot">{error}</p>}
     </div>
   );
 }

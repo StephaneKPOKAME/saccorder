@@ -10,6 +10,19 @@ export default function ConnexionPage() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail) {
+      setError("L'adresse email est obligatoire.");
+      setStatus("error");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      setError("Adresse email invalide.");
+      setStatus("error");
+      return;
+    }
+
     setStatus("loading");
     setError(null);
 
@@ -46,7 +59,11 @@ export default function ConnexionPage() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-8 px-6">
       <p className="font-logo text-xl text-text">s&apos;accorder</p>
-      <form onSubmit={handleSubmit} className="flex w-full max-w-sm flex-col gap-4">
+      <form
+        onSubmit={handleSubmit}
+        noValidate
+        className="flex w-full max-w-sm flex-col gap-4"
+      >
         <h1 className="font-display text-title text-text text-center">Connexion</h1>
         <div className="flex flex-col gap-2">
           <label htmlFor="email" className="text-label uppercase text-text-3">
@@ -59,7 +76,12 @@ export default function ConnexionPage() {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             placeholder="vous@entreprise.com"
-            className="rounded-xs border border-border bg-surface-2 px-4 py-3 text-body text-text outline-none transition placeholder:text-text-3 focus:border-mint focus:shadow-halo"
+            aria-invalid={status === "error"}
+            className={
+              status === "error"
+                ? "rounded-xs border border-abricot bg-surface-2 px-4 py-3 text-body text-text outline-none transition placeholder:text-text-3 focus:shadow-halo"
+                : "rounded-xs border border-border bg-surface-2 px-4 py-3 text-body text-text outline-none transition placeholder:text-text-3 focus:border-mint focus:shadow-halo"
+            }
           />
         </div>
         {error && <p className="text-sm text-abricot">{error}</p>}
